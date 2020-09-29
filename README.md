@@ -19,6 +19,7 @@ Afterwards enter the following command to build and install dmenu
 (if necessary as root):
 
 	make clean install
+    makepkg -ci for installation
 
 
 Config
