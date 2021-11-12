@@ -465,10 +465,6 @@ keypress_pin(XKeyEvent *ev, KeySym ksym, char* buf, int len) {
 		case XK_u:
 			insert(NULL, -cursor);
 			break;
-		case XK_v:
-			XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
-			                  utf8, utf8, win, CurrentTime);
-			return 0;
 		case XK_Return:
 		case XK_KP_Enter:
 			break;
@@ -477,6 +473,16 @@ keypress_pin(XKeyEvent *ev, KeySym ksym, char* buf, int len) {
 			return 1;
 		default:
 			return 1;
+		}
+	} else if (ev->state & Mod1Mask) {
+		switch(ksym) {
+        case XK_o: ksym = XK_Return; break;
+		case XK_v: XConvertSelection(dpy, clip,
+                           utf8, utf8, win, CurrentTime); return 0;
+		case XK_p: XConvertSelection(dpy, XA_PRIMARY,
+                           utf8, utf8, win, CurrentTime); return 0;
+		default:
+			return 0;
 		}
 	}
 
